@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pscapi sample</title>
+  <style>
+    .disabled {
+      color: lightgray;
+    }
+  </style>
+</head>
+<body>
+  <h1>pscapi sample</h1>
+
+  <table cellpadding="5">
+    <tr>
+      <td>From</td>
+      <td>
+        <input type="file" accept=".fountain,.json" onchange="loadFile(event)" />
+        <div style="font-size: 0.9em;">※fountain または json ファイル</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>To</td>
+      <td>
+        <select id="dest-format">
+          <option value="pdf">pdf</option>
+          <option value="html">html</option>
+          <option value="json">json</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td>
+        <button id="convert" onclick="convert(event)" disabled>変換</button>
+      </td>
+    </tr>
+  </table>
+
+  <a id="download" class="disabled">ダウンロード</a>
+
+  <script type="text/javascript">
+    const debug = false;
+    const apiBaseAddress = 'http://127.0.0.1:8000/conv';
+
+    let text = '';      // 入力ファイルの中身
+    let filepath = '';  // 入力ファイルのパス (fake)
+    let basename = '';  // 入力ファイルのベース名
+    let extTo = '';     // 変換先の拡張子
+
+    /** ファイルが選択されたら内容を読み取る関数 */
+    function loadFile(event) {
+      clearDlLink();
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        text = event.target.result;
+        if (debug) { console.log(text); }
+      }
+      const file = event.target.files[0];
+      filepath = event.target.value;
+      if (debug) { console.log(filepath); }
+
+      const button = document.getElementById('convert');
+      if (filepath) {
+        button.removeAttribute('disabled');
+        reader.readAsText(file);
+      } else {
+        button.setAttribute('disabled', 'disabled');
+        text = '';
+      }
+    }
+
+    /** ダウンロードリンクを無効化する関数 */
+    function clearDlLink() {
+      const dlLink = document.getElementById('download');
+      dlLink.removeAttribute('href');
+      dlLink.classList.add('disabled');
+    }
+
+    /** 変換してダウンロードの準備をする関数 */
+    async function convert(event) {
+      event.preventDefault();
+
+      const filename = filepath.split('\\').pop().split('/').pop();
+      if (debug) { console.log(filename); }
+      basename = filename.split('.').shift();
+      if (debug) { console.log(basename); }
+      const extFrom = filename.split('.').pop();
+      if (debug) { console.log(extFrom); }
+
+      const destFormat = document.getElementById('dest-format');
+      extTo = destFormat.value;
+      const url = `${apiBaseAddress}?from=${extFrom}&to=${extTo}`;
+      if (debug) { console.log(JSON.stringify({ data: text })); }
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: text }),
+      });
+      const data = await response.json();
+      if (debug) { console.log(data); }
+
+      let type = '';
+      let content;
+
+      switch (extTo) {
+        case 'pdf':
+          type = 'application/pdf';
+          content = atob(data.data);
+          break;
+        case 'html':
+          type = 'text/html';
+          content = data.data;
+          break;
+        default:
+          type = 'application/json';
+          content = data.data;
+      }
+
+      const blob = new Blob([content], { type: type });
+      const dlLink = document.getElementById('download');
+      dlLink.href = window.URL.createObjectURL(blob);
+      dlLink.setAttribute('download', `${basename}.${extTo}`);
+      dlLink.classList.remove('disabled');
+    }
+  </script>
+</body>
+</html>
