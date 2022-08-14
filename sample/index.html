@@ -19,7 +19,7 @@
       <td>From</td>
       <td>
         <input type="file" accept=".fountain,.json" onchange="loadFile(event)" />
-        <div style="font-size: 0.9em;">※fountain または json ファイル</div>
+        <div style="font-size: 0.9em;">※Fountain または JSON ファイル</div>
       </td>
     </tr>
 
@@ -51,7 +51,6 @@
     let text = '';      // 入力ファイルの中身
     let filepath = '';  // 入力ファイルのパス (fake)
     let basename = '';  // 入力ファイルのベース名
-    let extTo = '';     // 変換先の拡張子
 
     /** ファイルが選択されたら内容を読み取る関数 */
     function loadFile(event) {
@@ -66,6 +65,7 @@
       filepath = event.target.value;
       if (debug) { console.log(filepath); }
 
+      // 変換ボタンの有効/無効を切り替え、ファイルの内容を読み取る
       const button = document.getElementById('convert');
       if (filepath) {
         button.removeAttribute('disabled');
@@ -95,22 +95,25 @@
       if (debug) { console.log(extFrom); }
 
       const destFormat = document.getElementById('dest-format');
-      extTo = destFormat.value;
+      const extTo = destFormat.value;
       const url = `${apiBaseAddress}?from=${extFrom}&to=${extTo}`;
-      if (debug) { console.log(JSON.stringify({ data: text })); }
+      const body = JSON.stringify({ data: text });
+      if (debug) { console.log(body); }
 
+      // API 呼び出し
       const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data: text }),
+        body: body,
       });
       const data = await response.json();
       if (debug) { console.log(data); }
 
+      // ダウンロードリンク作成
       let type = '';
       let content;
 
-      switch (extTo) {
+      switch (data.format) {
         case 'pdf':
           type = 'application/pdf';
           content = atob(data.data);
@@ -127,7 +130,7 @@
       const blob = new Blob([content], { type: type });
       const dlLink = document.getElementById('download');
       dlLink.href = window.URL.createObjectURL(blob);
-      dlLink.setAttribute('download', `${basename}.${extTo}`);
+      dlLink.setAttribute('download', `${basename}.${data.format}`);
       dlLink.classList.remove('disabled');
     }
   </script>

@@ -1,5 +1,7 @@
 > pip install fastapi[all]
 > pip install playscript
 > pip install git+https://github.com/Tagirijus/fountain.git@7da5447abae640f34448dd36fee83f47a7415fcf
+
+以下、開発環境
 > pip install autopep8
 > pip install flake8

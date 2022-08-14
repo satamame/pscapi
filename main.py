@@ -12,8 +12,8 @@ from playscript.conv.html import psc_to_html
 class PdfParams(BaseModel):
     """Request query parameters to make pdf
     """
-    size: tuple = None
-    margin: tuple = None
+    size: tuple = None            # TODO: validation maybe needed.
+    margin: tuple = None          # TODO: validation maybe needed.
     upper_space: float = None
     font_name: str = None
     num_font_name: str = None
@@ -29,21 +29,21 @@ def build_pdf_params(pdf_params: PdfParams) -> dict:
     if not pdf_params:
         return params
     if (pdf_params.size is not None):
-        params.size = pdf_params.size
+        params['size'] = pdf_params.size
     if (pdf_params.margin is not None):
-        params.margin = pdf_params.margin
+        params['margin'] = pdf_params.margin
     if (pdf_params.upper_space is not None):
-        params.upper_space = pdf_params.upper_space
+        params['upper_space'] = pdf_params.upper_space
     if (pdf_params.font_name is not None):
-        params.font_name = pdf_params.font_name
+        params['font_name'] = pdf_params.font_name
     if (pdf_params.num_font_name is not None):
-        params.num_font_name = pdf_params.num_font_name
+        params['num_font_name'] = pdf_params.num_font_name
     if (pdf_params.font_size is not None):
-        params.font_size = pdf_params.font_size
+        params['font_size'] = pdf_params.font_size
     if (pdf_params.line_space is not None):
-        params.line_space = pdf_params.line_space
+        params['line_space'] = pdf_params.line_space
     if (pdf_params.draw_page_num is not None):
-        params.draw_page_num = pdf_params.draw_page_num
+        params['draw_page_num'] = pdf_params.draw_page_num
     return params
 
 
@@ -59,13 +59,13 @@ def build_html_params(html_params: HtmlParams):
     if not html_params:
         return params
     if (html_params.title is not None):
-        params.title = html_params.title
+        params['title'] = html_params.title
     if (html_params.template is not None):
-        params.template = html_params.template
+        params['template'] = html_params.template
     if (html_params.css is not None):
-        params.css = html_params.css
+        params['css'] = html_params.css
     if (html_params.js is not None):
-        params.js = html_params.js
+        params['js'] = html_params.js
     return params
 
 
@@ -76,6 +76,7 @@ class SrcData(BaseModel):
 
 
 class DestData(BaseModel):
+    format: str
     data: str
 
 
@@ -108,14 +109,17 @@ async def conv(
     else:  # from json
         psc = psc_loads(data_str)
 
-    # Convert from Psc and return
+    # Convert into specified format and return it
     if to == 'pdf':
         pdf_params = build_pdf_params(data.pdf_params)
         pdf = psc_to_pdf(psc, **pdf_params)
-        return DestData(data=base64.encodebytes(pdf.read()))
+        return DestData(
+            format='pdf',
+            data=base64.encodebytes(pdf.read()),
+        )
     elif to == 'html':
         html_params = build_html_params(data.html_params)
         html = psc_to_html(psc, **html_params)
-        return DestData(data=html)
+        return DestData(format='html', data=html)
     else:  # to json
-        return DestData(data=psc_dumps(psc))
+        return DestData(format='json', data=psc_dumps(psc))
