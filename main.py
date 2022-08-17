@@ -1,6 +1,7 @@
 import base64
 
-from fastapi import FastAPI, Query, HTTPException
+import requests
+from fastapi import FastAPI, Query, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from playscript.conv.fountain import psc_from_fountain
@@ -123,3 +124,42 @@ async def conv(
         return DestData(format='html', data=html)
     else:  # to json
         return DestData(format='json', data=psc_dumps(psc))
+
+
+http_bad_gateway = HTTPException(status_code=502, detail='Bad Gateway')
+http_gateway_timeout = HTTPException(status_code=504, detail='Gateway Timeout')
+
+
+@app.get("/load")
+async def load(
+    src: str,
+    format: str = Query(default='fountain', regex='json|fountain'),
+    as_: str = Query(default='pscv', alias='as', regex='pscv|json|pdf|html'),
+):
+    try:
+        r = requests.get(src)
+    except requests.exceptions.Timeout:
+        raise http_gateway_timeout
+    except requests.exceptions.RequestException:
+        raise http_bad_gateway
+
+    if r.status_code != 200:
+        raise http_bad_gateway
+
+    # Convert into Psc
+    if format == 'fountain':
+        psc = psc_from_fountain(r.text)
+    else:  # from json
+        psc = psc_loads(r.text)
+
+    # Return data to load
+    if as_ == 'pscv':
+        data = '{"psc": ' + psc_dumps(psc) + '}'
+        return Response(content=data, media_type="application/json")
+    elif as_ == 'pdf':
+        pass
+    elif as_ == 'html':
+        pass
+    else:  # as json
+        data = psc_dumps(psc)
+        return Response(content=data, media_type="application/json")
