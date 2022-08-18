@@ -1,4 +1,5 @@
 import base64
+import urllib
 
 import requests
 from fastapi import FastAPI, Query, HTTPException, Response
@@ -8,6 +9,7 @@ from playscript.conv.fountain import psc_from_fountain
 from playscript.conv.json import psc_loads, psc_dumps
 from playscript.conv.pdf import psc_to_pdf
 from playscript.conv.html import psc_to_html
+from reportlab.lib.pagesizes import A4, A5
 
 
 class PdfParams(BaseModel):
@@ -134,7 +136,9 @@ http_gateway_timeout = HTTPException(status_code=504, detail='Gateway Timeout')
 async def load(
     src: str,
     format: str = Query(default='fountain', regex='json|fountain'),
-    as_: str = Query(default='pscv', alias='as', regex='pscv|json|pdf|html'),
+    as_: str = Query(
+        default='pscv', alias='as', regex='pscv|json|pdf|html'),
+    size: str = Query(default='A5', regex='A[45]'),
 ):
     try:
         r = requests.get(src)
@@ -157,9 +161,19 @@ async def load(
         data = '{"psc": ' + psc_dumps(psc) + '}'
         return Response(content=data, media_type="application/json")
     elif as_ == 'pdf':
-        pass
+        if size == 'A4':
+            pdf_size = A4
+        else:
+            pdf_size = A5
+        pdf = psc_to_pdf(psc, size=pdf_size).read()
+        filename = urllib.parse.quote(psc.title) + '.pdf'
+        headers = {
+            'Content-Disposition': f'attachment; filename="{filename}"'}
+        return Response(
+            content=pdf, headers=headers, media_type="application/pdf")
     elif as_ == 'html':
-        pass
+        html = psc_to_html(psc)
+        return Response(content=html, media_type="text/html")
     else:  # as json
         data = psc_dumps(psc)
         return Response(content=data, media_type="application/json")
