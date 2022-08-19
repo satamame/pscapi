@@ -1,0 +1,4 @@
+fastapi==0.78.0
+git+https://github.com/Tagirijus/fountain.git@7da5447abae640f34448dd36fee83f47a7415fcf
+playscript==0.2.6
+requests==2.28.1

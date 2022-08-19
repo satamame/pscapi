@@ -1,0 +1,4 @@
+https://fastapi.tiangolo.com/ja/deployment/deta/
+
+command
+pscapi> deta deploy
