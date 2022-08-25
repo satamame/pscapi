@@ -31,6 +31,9 @@
         <div class="wy-side-nav-search" >
             <a href="../index.html" class="icon icon-home"> pscapi
           </a>
+              <div class="version">
+                1.0
+              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -39,12 +42,24 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">目次</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html">イントロダクション</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">APIs</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">/conv</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">エンドポイント</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">メソッド</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">クエリパラメタ</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#from">from</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#to">to</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">リクエストボディ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">レスポンスボディ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">呼び出し方の例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fountain-pdf">例1 - Fountain (日本式) から PDF に変換</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fountain-html">例2 - Fountain (日本式) から HTML に変換</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="load.html">/load</a></li>
@@ -78,10 +93,137 @@
              
   <section id="conv">
 <h1>/conv<a class="headerlink" href="#conv" title="この見出しへのパーマリンク"></a></h1>
-<p>フォーマットを変換する API です。</p>
+<p>フォーマットを変換する API です。<br />
+入出力は JSON 形式です。<br />
+Web アプリから呼んで使います。</p>
 <section id="id1">
 <h2>エンドポイント<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h2>
 <p>/conv</p>
+<dl class="simple myst">
+<dt>例1 - ローカルの開発サーバの場合</dt><dd><p>http://127.0.0.1:8000/conv</p>
+</dd>
+<dt>例2 - Deta の場合</dt><dd><p>https://j8bx8j.deta.dev/conv</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h2>メソッド<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h2>
+<p>POST</p>
+</section>
+<section id="id3">
+<h2>クエリパラメタ<a class="headerlink" href="#id3" title="この見出しへのパーマリンク"></a></h2>
+<section id="from">
+<h3>from<a class="headerlink" href="#from" title="この見出しへのパーマリンク"></a></h3>
+<p>値</p>
+<ul class="simple">
+<li><p>'json' (デフォルト)</p></li>
+<li><p>'fountain'</p></li>
+</ul>
+<p>入力となる台本データ (リクエストボディの <code class="docutils literal notranslate"><span class="pre">data</span></code> フィールド) のフォーマットです。</p>
+</section>
+<section id="to">
+<h3>to<a class="headerlink" href="#to" title="この見出しへのパーマリンク"></a></h3>
+<p>値</p>
+<ul class="simple">
+<li><p>'json' (デフォルト)</p></li>
+<li><p>'pdf'</p></li>
+<li><p>'html'</p></li>
+</ul>
+<p>出力となる台本データ (レスポンスボディの <code class="docutils literal notranslate"><span class="pre">data</span></code> フィールド) のフォーマットです。</p>
+</section>
+</section>
+<section id="id4">
+<h2>リクエストボディ<a class="headerlink" href="#id4" title="この見出しへのパーマリンク"></a></h2>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
+    &#39;data&#39;: str,
+    &#39;pdf_params&#39;: {
+        &#39;size&#39;: [w, h],
+        &#39;margin&#39;: [x, y],
+        &#39;upper_space&#39;: float,
+        &#39;font_name&#39;: str,
+        &#39;num_font_name&#39;: str,
+        &#39;font_size&#39;: float,
+        &#39;line_space&#39;: float,
+        &#39;draw_page_num&#39;: bool
+    },
+    &#39;html_params&#39;: {
+        &#39;title&#39;: str,
+        &#39;template&#39;: str,
+        &#39;css&#39;: str,
+        &#39;js&#39;: str
+    }
+}
+</pre></div>
+</div>
+<dl class="simple myst">
+<dt>data</dt><dd><p>入力となる台本データ (必須)。</p>
+</dd>
+<dt>pdf_params</dt><dd><p>出力フォーマットが 'pdf' の場合に指定できるオプション (省略可)。<br />
+詳しくは <a class="reference external" href="https://satamame.github.io/playscript/master/playscript.conv.html#playscript.conv.pdf.psc_to_pdf">playscript.conv.pdf.psc_to_pdf</a> のパラメタを参照。</p>
+</dd>
+<dt>html_params</dt><dd><p>出力フォーマットが 'html' の場合に指定できるオプション (省略可)。<br />
+詳しくは <a class="reference external" href="https://satamame.github.io/playscript/master/playscript.conv.html#playscript.conv.html.psc_to_html">playscript.conv.html.psc_to_html</a> のパラメタを参照。</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h2>レスポンスボディ<a class="headerlink" href="#id5" title="この見出しへのパーマリンク"></a></h2>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
+    &#39;format&#39;: str,
+    &#39;data&#39;: str
+}
+</pre></div>
+</div>
+<dl class="simple myst">
+<dt>format</dt><dd><p>'json', 'pdf' または 'html'</p>
+</dd>
+<dt>data</dt><dd><p>出力データ。<code class="docutils literal notranslate"><span class="pre">format</span></code> が 'pdf' の場合は Base64 エンコードされたバイナリデータ。</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h2>呼び出し方の例<a class="headerlink" href="#id6" title="この見出しへのパーマリンク"></a></h2>
+<section id="fountain-pdf">
+<h3>例1 - Fountain (日本式) から PDF に変換<a class="headerlink" href="#fountain-pdf" title="この見出しへのパーマリンク"></a></h3>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://j8bx8j.deta.dev/conv?from=fountain&amp;to=pdf&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Title: タイトル\nAuthor: 著者\n...&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// Fountain (日本式)</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="w"></span>
+<span class="w">  </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="nx">text</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">pdf_params</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">size</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mf">595.28</span><span class="p">,</span><span class="w"> </span><span class="mf">841.89</span><span class="p">]</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="c1">// A4 サイズ</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;application/json&#39;</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="nx">body</span><span class="p">,</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">pdf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">atob</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span><span class="w"> </span><span class="c1">// Base64 デコード</span><span class="w"></span>
+</pre></div>
+</div>
+<p>※ size パラメタはポイント単位で、1mm = 72/25.4 ポイント です。</p>
+<ul class="simple">
+<li><p>210(mm) ≒ 595.28(pt)</p></li>
+<li><p>297(mm) ≒ 841.89(pt)</p></li>
+</ul>
+</section>
+<section id="fountain-html">
+<h3>例2 - Fountain (日本式) から HTML に変換<a class="headerlink" href="#fountain-html" title="この見出しへのパーマリンク"></a></h3>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://j8bx8j.deta.dev/conv?from=fountain&amp;to=html&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Title: タイトル\nAuthor: 著者\n...&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// Fountain (日本式)</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="w"></span>
+<span class="w">  </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="nx">text</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">html_params</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;台本サンプル&#39;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="c1">// HTML のタイトル</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;application/json&#39;</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="nx">body</span><span class="p">,</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">html</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
