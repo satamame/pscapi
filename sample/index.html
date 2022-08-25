@@ -16,6 +16,17 @@
 
   <table cellpadding="5">
     <tr>
+      <td>Server</td>
+      <td>
+        <form>
+          <input type="radio" name="server" value="local" checked />
+            ローカル (http://127.0.0.1:8000)<br>
+          <input type="radio" name="server" value="deta" />
+            Deta (https://j8bx8j.deta.dev)
+        </form>
+      </td>
+    </tr>
+    <tr>
       <td>From</td>
       <td>
         <input type="file" accept=".fountain,.json" onchange="loadFile(event)" />
@@ -46,7 +57,8 @@
 
   <script type="text/javascript">
     const debug = false;
-    const apiBaseAddress = 'http://127.0.0.1:8000/conv';
+    const localApiAddress = 'http://127.0.0.1:8000/conv';
+    const detaApiAddress = 'https://j8bx8j.deta.dev/conv';
 
     let text = '';      // 入力ファイルの中身
     let filepath = '';  // 入力ファイルのパス (fake)
@@ -87,6 +99,11 @@
     async function convert(event) {
       event.preventDefault();
 
+      const server = document.forms[0]['server'].value;
+      const baseAddress = server == 'deta'
+        ? detaApiAddress
+        : localApiAddress;
+
       const filename = filepath.split('\\').pop().split('/').pop();
       if (debug) { console.log(filename); }
       basename = filename.split('.').shift();
@@ -96,7 +113,7 @@
 
       const destFormat = document.getElementById('dest-format');
       const extTo = destFormat.value;
-      const url = `${apiBaseAddress}?from=${extFrom}&to=${extTo}`;
+      const url = `${baseAddress}?from=${extFrom}&to=${extTo}`;
       const body = JSON.stringify({ data: text });
       if (debug) { console.log(body); }
 
