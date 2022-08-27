@@ -9,7 +9,7 @@
 ### フォーマット変換
 
 - 入力は [Fountain (日本式)](https://satamame.github.io/playscript/master/fountain.html) または JSON 形式です。
-    - sample フォルダにサンプル (example.fountain, example.json) があります。
+    - sample フォルダにサンプルがあります (example.fountain, example.json)。
 - 出力は PDF, HTML または JSON 形式です。
     - JSON 形式は [pscv (台本ビューア)](https://github.com/satamame/pscv) で使えます。
 
@@ -26,4 +26,4 @@
 ## APIs
 
 API の仕様や呼び出し方の例は、[こちらのドキュメント](https://satamame.github.io/pscapi/) をご覧ください。  
-また sample フォルダにフォーマット変換をするサンプル (index.html) があります。
+また sample フォルダにフォーマット変換をする JavaScript のサンプルがあります (index.html)。

@@ -39,7 +39,6 @@ POST
 
 出力となる台本データ (レスポンスボディの `data` フィールド) のフォーマットです。
 
-
 ## リクエストボディ
 
 ```json
@@ -94,6 +93,8 @@ data
 
 ### 例1 - Fountain (日本式) から PDF に変換
 
+(JavaScript)
+
 ```javascript
 const url = 'https://j8bx8j.deta.dev/conv?from=fountain&to=pdf';
 const text = 'Title: タイトル\nAuthor: 著者\n...'; // Fountain (日本式)
@@ -115,6 +116,8 @@ const pdf = atob(data.data); // Base64 デコード
 - 297(mm) ≒ 841.89(pt)
 
 ### 例2 - Fountain (日本式) から HTML に変換
+
+(JavaScript)
 
 ```javascript
 const url = 'https://j8bx8j.deta.dev/conv?from=fountain&to=html';
