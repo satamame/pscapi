@@ -6,6 +6,16 @@
 
 - Doc: https://satamame.github.io/pscapi/
 
+たとえば GitHub とかで台本を管理して、
+
+![img/fountain.png](img/fountain.png)
+
+それをスマホで読んだりするのに使えます。
+
+![img/pscv.png](img/pscv.png)
+
+## 機能
+
 ### フォーマット変換
 
 - 入力は [Fountain (日本式)](https://satamame.github.io/playscript/master/fountain.html) または JSON 形式です。
@@ -21,9 +31,11 @@
 ## デプロイ
 
 [FastAPI のドキュメント](https://fastapi.tiangolo.com/ja/deployment/) を参考にデプロイしてください。  
-また、私が Deta にデプロイしたものを使って頂いても良いです (https://j8bx8j.deta.dev)。
+私が Deta にデプロイしたものを使って頂いても良いです。
+- URL: https[]()://j8bx8j.deta.dev
+- Swagger UI: https://j8bx8j.deta.dev/docs
 
 ## APIs
 
 API の仕様や呼び出し方の例は、[こちらのドキュメント](https://satamame.github.io/pscapi/) をご覧ください。  
-また sample フォルダにフォーマット変換をする JavaScript のサンプルがあります (index.html)。
+sample フォルダにフォーマット変換をする JavaScript のサンプルがあります (index.html)。
