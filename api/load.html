@@ -47,6 +47,19 @@
 <li class="toctree-l2"><a class="reference internal" href="conv.html">/conv</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">/load</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">エンドポイント</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">メソッド</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">クエリパラメタ</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#src">src</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#format">format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#as">as</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#size">size</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">呼び出し方の例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fountain-pscv">例1 - Fountain (日本式) を pscv (台本ビューア) で読み込む</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#json-pdf">例2 - JSON を PDF としてダウンロードする</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -79,10 +92,77 @@
              
   <section id="load">
 <h1>/load<a class="headerlink" href="#load" title="この見出しへのパーマリンク"></a></h1>
-<p>Web 上にある台本データを取得する API です。</p>
+<p>Web 上にある台本データを取得する API です。<br />
+Web ブラウザ等から呼んで、データをレスポンスとして受け取ります。</p>
 <section id="id1">
 <h2>エンドポイント<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h2>
 <p>/load</p>
+<dl class="simple myst">
+<dt>例1 - ローカルの開発サーバの場合</dt><dd><p>http://127.0.0.1:8000/load</p>
+</dd>
+<dt>例2 - Deta の場合</dt><dd><p>https://j8bx8j.deta.dev/load</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h2>メソッド<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h2>
+<p>GET</p>
+</section>
+<section id="id3">
+<h2>クエリパラメタ<a class="headerlink" href="#id3" title="この見出しへのパーマリンク"></a></h2>
+<section id="src">
+<h3>src<a class="headerlink" href="#src" title="この見出しへのパーマリンク"></a></h3>
+<p>取得したい台本データの URI です。</p>
+</section>
+<section id="format">
+<h3>format<a class="headerlink" href="#format" title="この見出しへのパーマリンク"></a></h3>
+<p>値</p>
+<ul class="simple">
+<li><p>'fountain' (デフォルト)</p></li>
+<li><p>'json'</p></li>
+</ul>
+<p>取得したい台本データの Web 上でのフォーマットです。</p>
+</section>
+<section id="as">
+<h3>as<a class="headerlink" href="#as" title="この見出しへのパーマリンク"></a></h3>
+<p>値</p>
+<ul class="simple">
+<li><p>'pscv' (デフォルト)</p></li>
+<li><p>'json'</p></li>
+<li><p>'pdf'</p></li>
+<li><p>'html'</p></li>
+</ul>
+<p>レスポンスとして受け取るデータのフォーマットです。<br />
+'pscv' を指定すると、<a class="reference external" href="https://github.com/satamame/pscv">pscv (台本ビューア)</a> で読み込めるフォーマットになります。</p>
+</section>
+<section id="size">
+<h3>size<a class="headerlink" href="#size" title="この見出しへのパーマリンク"></a></h3>
+<p>値</p>
+<ul class="simple">
+<li><p>'A5' (デフォルト)</p></li>
+<li><p>'A4'</p></li>
+</ul>
+<p>PDF として受け取る時のページサイズです。</p>
+</section>
+</section>
+<section id="id4">
+<h2>呼び出し方の例<a class="headerlink" href="#id4" title="この見出しへのパーマリンク"></a></h2>
+<section id="fountain-pscv">
+<h3>例1 - Fountain (日本式) を pscv (台本ビューア) で読み込む<a class="headerlink" href="#fountain-pscv" title="この見出しへのパーマリンク"></a></h3>
+<p>このリポジトリのサンプルを Deta 経由で読み込む場合です。<br />
+以下の URI を <a class="reference external" href="https://github.com/satamame/pscv">pscv</a> の「URL から取得する」に入力します。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>https://j8bx8j.deta.dev/load?src=https://raw.githubusercontent.com/satamame/pscapi/main/sample/example.fountain
+</pre></div>
+</div>
+</section>
+<section id="json-pdf">
+<h3>例2 - JSON を PDF としてダウンロードする<a class="headerlink" href="#json-pdf" title="この見出しへのパーマリンク"></a></h3>
+<p>このリポジトリのサンプルを Deta 経由で読み込む場合です。<br />
+以下の URI を Web ブラウザのアドレスバーに入力します。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>https://j8bx8j.deta.dev/load?src=https://raw.githubusercontent.com/satamame/pscapi/main/sample/example.json&amp;format=json&amp;as=pdf
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
