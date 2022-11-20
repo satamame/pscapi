@@ -99,6 +99,11 @@
     async function convert(event) {
       event.preventDefault();
 
+      // ダウンロードリンクを無効化
+      const dlLink = document.getElementById('download');
+      dlLink.removeAttribute('href');
+      dlLink.classList.add('disabled');
+
       const server = document.forms[0]['server'].value;
       const baseAddress = server == 'deta'
         ? detaApiAddress
@@ -145,7 +150,6 @@
       }
 
       const blob = new Blob([content], { type: type });
-      const dlLink = document.getElementById('download');
       dlLink.href = window.URL.createObjectURL(blob);
       dlLink.setAttribute('download', `${basename}.${data.format}`);
       dlLink.classList.remove('disabled');
