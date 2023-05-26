@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'pscapi'
-copyright = '2022, satamame'
+copyright = '2022-2023, satamame'
 author = 'satamame'
 version = '1.0'
 

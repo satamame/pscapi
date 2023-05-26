@@ -11,7 +11,7 @@ Web ブラウザ等から呼んで、データをレスポンスとして受け�
 : http://127.0.0.1:8000/load
 
 例2 - Deta の場合
-: https://j8bx8j.deta.dev/load
+: https://pscapi-1-a9576981.deta.app/load
 
 ## メソッド
 
@@ -61,7 +61,7 @@ PDF として受け取る時のページサイズです。
 以下の URI を [pscv](https://github.com/satamame/pscv) の「URL から取得する」に入力します。
 
 ```
-https://j8bx8j.deta.dev/load?src=https://raw.githubusercontent.com/satamame/pscapi/main/sample/example.fountain
+https://pscapi-1-a9576981.deta.app/load?src=https://raw.githubusercontent.com/satamame/pscapi/main/sample/example.fountain
 ```
 
 ### 例2 - JSON を PDF としてダウンロードする
@@ -70,5 +70,5 @@ https://j8bx8j.deta.dev/load?src=https://raw.githubusercontent.com/satamame/psca
 以下の URI を Web ブラウザのアドレスバーに入力します。
 
 ```
-https://j8bx8j.deta.dev/load?src=https://raw.githubusercontent.com/satamame/pscapi/main/sample/example.json&format=json&as=pdf
+https://pscapi-1-a9576981.deta.app/load?src=https://raw.githubusercontent.com/satamame/pscapi/main/sample/example.json&format=json&as=pdf
 ```

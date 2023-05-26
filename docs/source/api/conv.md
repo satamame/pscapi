@@ -12,7 +12,7 @@ Web アプリから呼んで使います。
 : http://127.0.0.1:8000/conv
 
 例2 - Deta の場合
-: https://j8bx8j.deta.dev/conv
+: https://pscapi-1-a9576981.deta.app/conv
 
 ## メソッド
 
@@ -96,7 +96,7 @@ data
 (JavaScript)
 
 ```javascript
-const url = 'https://j8bx8j.deta.dev/conv?from=fountain&to=pdf';
+const url = 'https://pscapi-1-a9576981.deta.app/conv?from=fountain&to=pdf';
 const text = 'Title: タイトル\nAuthor: 著者\n...'; // Fountain (日本式)
 const body = JSON.stringify({
   data: text,
@@ -120,7 +120,7 @@ const pdf = atob(data.data); // Base64 デコード
 (JavaScript)
 
 ```javascript
-const url = 'https://j8bx8j.deta.dev/conv?from=fountain&to=html';
+const url = 'https://pscapi-1-a9576981.deta.app/conv?from=fountain&to=html';
 const text = 'Title: タイトル\nAuthor: 著者\n...'; // Fountain (日本式)
 const body = JSON.stringify({
   data: text,
