@@ -2,3 +2,14 @@ https://fastapi.tiangolo.com/ja/deployment/deta/
 
 command
 pscapi> deta deploy
+
+new command for space
+pscapi> dpace push
+
+release:
+https://deta.space/discovery/r/1herb8ad645m5ecz
+
+endopint:
+https://pscapi-1-a9576981.deta.app
+swagger-ui:
+https://pscapi-1-a9576981.deta.app/docs
