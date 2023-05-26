@@ -32,8 +32,8 @@
 
 [FastAPI のドキュメント](https://fastapi.tiangolo.com/ja/deployment/) を参考にデプロイしてください。  
 私が Deta にデプロイしたものを使って頂いても良いです。
-- URL: https[]()://j8bx8j.deta.dev
-- Swagger UI: https://j8bx8j.deta.dev/docs
+- URL: https[]()://pscapi-1-a9576981.deta.app
+- Swagger UI: https://pscapi-1-a9576981.deta.app/docs
 
 ## APIs
 
