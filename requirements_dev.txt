@@ -3,7 +3,7 @@ git+https://github.com/Tagirijus/fountain.git@7da5447abae640f34448dd36fee83f47a7
 playscript==0.2.7
 requests==2.31.0
 
-autopep8==2.0.4
+autopep8==2.1.0
 flake8==7.0.0
 myst-parser==0.18.0
 Sphinx==5.1.1
