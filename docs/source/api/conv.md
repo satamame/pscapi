@@ -41,24 +41,24 @@ POST
 
 ## リクエストボディ
 
-```json
+```
 {
-    'data': str,
-    'pdf_params': {
-        'size': [w, h],
-        'margin': [x, y],
-        'upper_space': float,
-        'font_name': str,
-        'num_font_name': str,
-        'font_size': float,
-        'line_space': float,
-        'draw_page_num': bool
+    "data": str,
+    "pdf_params": {
+        "size": [w, h],
+        "margin": [x, y],
+        "upper_space": float,
+        "font_name": str,
+        "num_font_name": str,
+        "font_size": float,
+        "line_space": float,
+        "draw_page_num": bool
     },
-    'html_params': {
-        'title': str,
-        'template': str,
-        'css': str,
-        'js': str
+    "html_params": {
+        "title": str,
+        "template": str,
+        "css": str,
+        "js": str
     }
 }
 ```
@@ -76,18 +76,18 @@ html_params
 
 ## レスポンスボディ
 
-```json
+```
 {
-    'format': str,
-    'data': str
+    "format": str,
+    "data": str
 }
 ```
 
 format
-: 'json', 'pdf' または 'html'
+: "json", "pdf" または "html"
 
 data
-: 出力データ。`format` が 'pdf' の場合は Base64 エンコードされたバイナリデータ。
+: 出力データ。`format` が "pdf" の場合は Base64 エンコードされたバイナリデータ。
 
 ## 呼び出し方の例
 
