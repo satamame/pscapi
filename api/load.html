@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="ja" >
+<html class="writer-html5" lang="ja" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>/load &mdash; pscapi  ドキュメント</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/translations.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=4eb6406d"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/translations.js?v=4dbe4bdc"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
@@ -28,14 +30,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> pscapi
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pscapi
           </a>
               <div class="version">
                 1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -79,9 +85,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">APIs</a> &raquo;</li>
-      <li>/load</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">APIs</a></li>
+      <li class="breadcrumb-item active">/load</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -91,11 +97,11 @@
            <div itemprop="articleBody">
              
   <section id="load">
-<h1>/load<a class="headerlink" href="#load" title="この見出しへのパーマリンク"></a></h1>
+<h1>/load<a class="headerlink" href="#load" title="Link to this heading"></a></h1>
 <p>Web 上にある台本データを取得する API です。<br />
 Web ブラウザ等から呼んで、データをレスポンスとして受け取ります。</p>
 <section id="id1">
-<h2>エンドポイント<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h2>
+<h2>エンドポイント<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>/load</p>
 <dl class="simple myst">
 <dt>例1 - ローカルの開発サーバの場合</dt><dd><p>http://127.0.0.1:8000/load</p>
@@ -105,17 +111,17 @@ Web ブラウザ等から呼んで、データをレスポンスとして受け�
 </dl>
 </section>
 <section id="id2">
-<h2>メソッド<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h2>
+<h2>メソッド<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <p>GET</p>
 </section>
 <section id="id3">
-<h2>クエリパラメタ<a class="headerlink" href="#id3" title="この見出しへのパーマリンク"></a></h2>
+<h2>クエリパラメタ<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
 <section id="src">
-<h3>src<a class="headerlink" href="#src" title="この見出しへのパーマリンク"></a></h3>
+<h3>src<a class="headerlink" href="#src" title="Link to this heading"></a></h3>
 <p>取得したい台本データの URI です。</p>
 </section>
 <section id="format">
-<h3>format<a class="headerlink" href="#format" title="この見出しへのパーマリンク"></a></h3>
+<h3>format<a class="headerlink" href="#format" title="Link to this heading"></a></h3>
 <p>値</p>
 <ul class="simple">
 <li><p>'fountain' (デフォルト)</p></li>
@@ -124,7 +130,7 @@ Web ブラウザ等から呼んで、データをレスポンスとして受け�
 <p>取得したい台本データの Web 上でのフォーマットです。</p>
 </section>
 <section id="as">
-<h3>as<a class="headerlink" href="#as" title="この見出しへのパーマリンク"></a></h3>
+<h3>as<a class="headerlink" href="#as" title="Link to this heading"></a></h3>
 <p>値</p>
 <ul class="simple">
 <li><p>'pscv' (デフォルト)</p></li>
@@ -136,7 +142,7 @@ Web ブラウザ等から呼んで、データをレスポンスとして受け�
 'pscv' を指定すると、<a class="reference external" href="https://github.com/satamame/pscv">pscv (台本ビューア)</a> で読み込めるフォーマットになります。</p>
 </section>
 <section id="size">
-<h3>size<a class="headerlink" href="#size" title="この見出しへのパーマリンク"></a></h3>
+<h3>size<a class="headerlink" href="#size" title="Link to this heading"></a></h3>
 <p>値</p>
 <ul class="simple">
 <li><p>'A5' (デフォルト)</p></li>
@@ -146,9 +152,9 @@ Web ブラウザ等から呼んで、データをレスポンスとして受け�
 </section>
 </section>
 <section id="id4">
-<h2>呼び出し方の例<a class="headerlink" href="#id4" title="この見出しへのパーマリンク"></a></h2>
+<h2>呼び出し方の例<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
 <section id="fountain-pscv">
-<h3>例1 - Fountain (日本式) を pscv (台本ビューア) で読み込む<a class="headerlink" href="#fountain-pscv" title="この見出しへのパーマリンク"></a></h3>
+<h3>例1 - Fountain (日本式) を pscv (台本ビューア) で読み込む<a class="headerlink" href="#fountain-pscv" title="Link to this heading"></a></h3>
 <p>このリポジトリのサンプルを Deta 経由で読み込む場合です。<br />
 以下の URI を <a class="reference external" href="https://github.com/satamame/pscv">pscv</a> の「URL から取得する」に入力します。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>https://pscapi-1-a9576981.deta.app/load?src=https://raw.githubusercontent.com/satamame/pscapi/main/sample/example.fountain
@@ -156,7 +162,7 @@ Web ブラウザ等から呼んで、データをレスポンスとして受け�
 </div>
 </section>
 <section id="json-pdf">
-<h3>例2 - JSON を PDF としてダウンロードする<a class="headerlink" href="#json-pdf" title="この見出しへのパーマリンク"></a></h3>
+<h3>例2 - JSON を PDF としてダウンロードする<a class="headerlink" href="#json-pdf" title="Link to this heading"></a></h3>
 <p>このリポジトリのサンプルを Deta 経由で読み込む場合です。<br />
 以下の URI を Web ブラウザのアドレスバーに入力します。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>https://pscapi-1-a9576981.deta.app/load?src=https://raw.githubusercontent.com/satamame/pscapi/main/sample/example.json&amp;format=json&amp;as=pdf
