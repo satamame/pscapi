@@ -5,7 +5,7 @@ requests==2.31.0
 
 autopep8==2.1.0
 flake8==7.0.0
-myst-parser==0.18.0
+myst-parser==3.0.1
 Sphinx==7.3.7
 sphinx-rtd-theme==2.0.0
 uvicorn==0.29.0
