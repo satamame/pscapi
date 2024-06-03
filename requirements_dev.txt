@@ -8,4 +8,4 @@ flake8==7.0.0
 myst-parser==3.0.1
 Sphinx==7.3.7
 sphinx-rtd-theme==2.0.0
-uvicorn==0.29.0
+uvicorn==0.30.1
