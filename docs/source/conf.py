@@ -26,7 +26,7 @@ source_suffix = {
     '.md': 'markdown',
 }
 
-myst_enable_extensions = ['deflist']
+myst_enable_extensions = ['deflist', 'substitution']
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
